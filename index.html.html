@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio website of a business student.">
+  <title>Rajvir Singh | Personal Portfolio</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --text: #182230;
+      --muted: #617085;
+      --primary: #3457d5;
+      --primary-dark: #263fa8;
+      --accent: #dce5ff;
+      --border: #e5eaf2;
+      --shadow: 0 18px 45px rgba(25, 42, 80, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 90%); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 24px; }
+    .brand { font-weight: 800; letter-spacing: -.4px; font-size: 1.15rem; }
+    .brand span { color: var(--primary); }
+    .nav-links { display: flex; gap: 24px; align-items: center; font-size: .93rem; color: var(--muted); }
+    .nav-links a:hover { color: var(--primary); }
+    .menu-toggle { display: none; border: 0; background: transparent; font-size: 1.5rem; cursor: pointer; }
+    .hero { padding: 88px 0 72px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 55px; align-items: center; }
+    .eyebrow { display: inline-block; padding: 6px 13px; border-radius: 99px; background: var(--accent); color: var(--primary-dark); font-weight: 700; font-size: .82rem; }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.08; letter-spacing: -2px; margin: 20px 0; }
+    h1 span { color: var(--primary); }
+    .hero p { max-width: 620px; color: var(--muted); font-size: 1.08rem; }
+    .actions { display: flex; gap: 13px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; border-radius: 11px; font-weight: 700; transition: .2s; border: 1px solid transparent; cursor: pointer; font-size: .95rem; }
+    .btn-primary { color: #fff; background: var(--primary); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-secondary { background: var(--surface); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+    .profile-card { background: linear-gradient(145deg, #e5ebff, #fff 65%); border: 1px solid #e0e7ff; border-radius: 30px; padding: 30px; box-shadow: var(--shadow); text-align: center; position: relative; }
+    .avatar { width: 155px; height: 155px; margin: 8px auto 20px; border-radius: 50%; background: var(--primary); color: white; display: grid; place-items: center; font-size: 3.5rem; font-weight: 800; border: 8px solid white; box-shadow: 0 10px 30px rgba(52,87,213,.22); }
+    .profile-card h2 { margin: 0; font-size: 1.5rem; }
+    .profile-card p { margin: 5px 0 16px; font-size: .95rem; }
+    .tag-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .tag { padding: 6px 10px; border-radius: 8px; background: white; border: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
+    section { padding: 68px 0; }
+    .section-heading { margin-bottom: 30px; }
+    .section-heading .kicker { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; font-size: .76rem; }
+    h2.section-title { font-size: clamp(1.9rem, 4vw, 2.6rem); letter-spacing: -.8px; line-height: 1.2; margin: 8px 0 10px; }
+    .section-heading p { color: var(--muted); max-width: 650px; margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .panel, .project-card, .skill-card, .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 25px; box-shadow: 0 7px 24px rgba(25,42,80,.035); }
+    .panel h3, .project-card h3, .skill-card h3 { margin-top: 0; margin-bottom: 8px; }
+    .panel p, .project-card p, .skill-card p { color: var(--muted); margin-bottom: 0; }
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 18px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 15px; }
+    .stat strong { display: block; color: var(--primary); font-size: 1.3rem; }
+    .stat span { font-size: .82rem; color: var(--muted); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .skill-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: var(--accent); color: var(--primary); font-size: 1.25rem; margin-bottom: 15px; }
+    .project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .project-number { color: var(--primary); font-weight: 800; font-size: .82rem; letter-spacing: 1px; }
+    .project-card { transition: transform .2s, box-shadow .2s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .project-card p { margin-bottom: 16px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chips span { background: #f0f3fa; color: #526176; border-radius: 7px; padding: 5px 9px; font-size: .78rem; }
+    .contact-wrap { display: grid; grid-template-columns: .85fr 1.15fr; gap: 25px; align-items: start; }
+    .contact-info p { color: var(--muted); }
+    .contact-line { display: flex; gap: 12px; margin: 16px 0; align-items: flex-start; }
+    .contact-line strong { display: block; }
+    .contact-line small { color: var(--muted); overflow-wrap: anywhere; }
+    form { display: grid; gap: 13px; }
+    label { font-size: .9rem; font-weight: 700; }
+    input, textarea { width: 100%; padding: 12px 13px; margin-top: 5px; border: 1px solid var(--border); border-radius: 10px; font: inherit; background: #fbfcff; color: var(--text); }
+    input:focus, textarea:focus { outline: 2px solid #cbd6ff; border-color: var(--primary); }
+    textarea { min-height: 120px; resize: vertical; }
+    .form-note { font-size: .82rem; color: var(--muted); margin: 0; }
+    footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted); font-size: .9rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    @media (max-width: 760px) {
+      .hero { padding-top: 55px; }
+      .hero-grid, .about-grid, .contact-wrap { grid-template-columns: 1fr; }
+      .hero-grid { gap: 35px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; position: absolute; left: 0; right: 0; top: 72px; background: white; border-bottom: 1px solid var(--border); padding: 18px 5%; flex-direction: column; align-items: flex-start; gap: 14px; }
+      .nav-links.open { display: flex; }
+      .menu-toggle { display: block; }
+      h1 { letter-spacing: -1.3px; }
+    }
+    @media (max-width: 500px) {
+      .skills-grid, .project-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .profile-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home">Rajvir<span>.</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">STUDENT • FUTURE PROFESSIONAL</span>
+          <h1>Hello, I'm <span>Rajvir Singh.</span></h1>
+          <p>I'm a student interested in business, technology, research, and community development. I enjoy learning new skills, working on practical projects, and finding ways to turn ideas into meaningful outcomes.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#projects">Explore My Work ↗</a>
+            <a class="btn btn-secondary" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+        <aside class="profile-card" aria-label="Profile summary">
+          <div class="avatar" aria-label="Initials RS">RS</div>
+          <h2>Rajvir Singh</h2>
+          <p>Student • Learner • Aspiring Professional</p>
+          <div class="tag-row">
+            <span class="tag">Business</span><span class="tag">Data & Technology</span><span class="tag">Community Work</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">A little about me</span>
+          <h2 class="section-title">Learning today, building for tomorrow.</h2>
+          <p>This portfolio introduces my interests, skills, and selected academic projects.</p>
+        </div>
+        <div class="about-grid">
+          <div class="panel">
+            <h3>Who I Am</h3>
+            <p>I believe learning becomes more valuable when it is connected with real-life situations. Through academic assignments and group activities, I am developing my communication, analytical thinking, teamwork, and problem-solving abilities.</p>
+          </div>
+          <div class="panel">
+            <h3>What I Care About</h3>
+            <p>I am interested in understanding how businesses use data and technology, how young people prepare for the workplace, and how community-based projects can create awareness and positive change.</p>
+          </div>
+        </div>
+        <div class="stats" aria-label="Portfolio highlights">
+          <div class="stat"><strong>Curious</strong><span>Always learning</span></div>
+          <div class="stat"><strong>Practical</strong><span>Project-focused mindset</span></div>
+          <div class="stat"><strong>Collaborative</strong><span>Open to teamwork</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">What I'm developing</span>
+          <h2 class="section-title">Skills & interests</h2>
+          <p>A growing set of skills I aim to strengthen through coursework, projects, and practical experience.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card"><div class="skill-icon">▦</div><h3>Business & Management</h3><p>Understanding business concepts, planning, marketing, and organizational decisions.</p></article>
+          <article class="skill-card"><div class="skill-icon">⌘</div><h3>Data & Technology</h3><p>Exploring data analysis, machine learning concepts, Python, and web basics.</p></article>
+          <article class="skill-card"><div class="skill-icon">✎</div><h3>Research & Writing</h3><p>Preparing reports, reviewing information, organizing findings, and presenting ideas clearly.</p></article>
+          <article class="skill-card"><div class="skill-icon">◎</div><h3>Communication</h3><p>Practising clear communication, presentations, interviews, and active listening.</p></article>
+          <article class="skill-card"><div class="skill-icon">♡</div><h3>Community Engagement</h3><p>Learning from community conversations and supporting awareness initiatives.</p></article>
+          <article class="skill-card"><div class="skill-icon">↗</div><h3>Problem Solving</h3><p>Breaking tasks into steps, comparing options, and improving through feedback.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Selected work</span>
+          <h2 class="section-title">Projects I'm exploring</h2>
+          <p>Examples of academic and community-focused work. Replace or update these descriptions to match your final submissions.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-number">PROJECT 01</span>
+            <h3>Mental Health & Workplace Readiness Among Youth</h3>
+            <p>A community engagement research project exploring young people's career concerns, confidence, workplace preparation, and emotional well-being through interviews and awareness activities.</p>
+            <div class="chips"><span>Research</span><span>Interviews</span><span>Youth Awareness</span></div>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROJECT 02</span>
+            <h3>Data Analysis & Machine Learning</h3>
+            <p>Academic work involving data preparation, classification, clustering, and association rule mining to understand patterns and support evidence-based decisions.</p>
+            <div class="chips"><span>Data</span><span>Python</span><span>Analytics</span></div>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROJECT 03</span>
+            <h3>Retail Data Warehouse</h3>
+            <p>A study of how retail sales data can be organized using fact and dimension tables, transformed through ETL, and explored through OLAP operations.</p>
+            <div class="chips"><span>Data Warehouse</span><span>ETL</span><span>Business Insights</span></div>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROJECT 04</span>
+            <h3>Digital Marketing Campaign</h3>
+            <p>A campaign-planning exercise focused on defining an audience, selecting social platforms, creating content ideas, and identifying useful performance indicators.</p>
+            <div class="chips"><span>Marketing</span><span>Content</span><span>KPIs</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Let's connect</span>
+          <h2 class="section-title">Contact me</h2>
+          <p>Have a project, learning opportunity, or idea to discuss? Feel free to reach out.</p>
+        </div>
+        <div class="contact-wrap">
+          <div class="contact-card contact-info">
+            <h3>Get in touch</h3>
+            <p>Update the contact details below with the information you want to share publicly.</p>
+            <div class="contact-line"><span>✉</span><div><strong>Email</strong><small>your.email@example.com</small></div></div>
+            <div class="contact-line"><span>⌖</span><div><strong>Location</strong><small>Ghaziabad, Uttar Pradesh, India</small></div></div>
+            <div class="contact-line"><span>in</span><div><strong>LinkedIn</strong><small>Add your LinkedIn profile link</small></div></div>
+          </div>
+          <div class="contact-card">
+            <form id="contactForm">
+              <label>Your name<input name="name" type="text" placeholder="Enter your name" required></label>
+              <label>Your email<input name="email" type="email" placeholder="Enter your email" required></label>
+              <label>Message<textarea name="message" placeholder="Write your message..." required></textarea></label>
+              <button class="btn btn-primary" type="submit">Prepare Email ↗</button>
+              <p class="form-note">This form opens your email app with the message prepared. Add your real email address in the code first.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Rajvir Singh. Personal portfolio.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const data = new FormData(this);
+      const name = data.get('name');
+      const email = data.get('email');
+      const message = data.get('message');
+      const recipient = 'your.email@example.com'; // Replace with your real email address
+      const subject = encodeURIComponent('Portfolio message from ' + name);
+      const body = encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message);
+      window.location.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
+    });
+  </script>
+</body>
+</html>
